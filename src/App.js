@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { Button } from 'antd';
-export default class App extends Component {
+import {Switch,HashRouter,Redirect} from 'react-router-dom'
+import renderRoutes from '@utils/renderRoute.js'
+import {noLayoutRoute,layoutRoute} from '@router'
+
+class App extends Component {
   render() {
     return (
-      <div>
-        <Button type="dashed">Dashed</Button>
-        <Button type="primary">Primary</Button>
-        首页
-      </div>
+      <HashRouter>
+        <Switch>
+          <Redirect from='/' to='/home' exact/>
+          {renderRoutes(noLayoutRoute)(layoutRoute)}
+        </Switch>
+      </HashRouter>
     )
   }
 }
+export default App

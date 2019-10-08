@@ -21,7 +21,7 @@ export const get=(url,data)=>{
 
 export const post=(url,data)=>{
     var result=fetchPro(url,{
-        methods: 'post',
+        method: 'post',
         credentials: "include",
         headers: {
             "content-type": "application/x-www-form-urlencoded"
