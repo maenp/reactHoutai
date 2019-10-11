@@ -1,37 +1,30 @@
 import React, { Component } from 'react'
 import { LoginComponent } from './styled'
-import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { Form, Icon, Input, Button, message } from 'antd';
 import { connect } from 'react-redux'
-import { LOGIN } from '@actions'
+import { REGHITER } from '@actions'
 import { Link } from 'react-router-dom'
 const mapDispatchToProps = (dispatch) => {
     return {
         loginHandler(e) {
             e.preventDefault();
             this.props.form.validateFields(async (err, values) => {
-                console.log(values.username)
                 if (!err) {
-                    let code = await dispatch(LOGIN(values))
+                    let code = await dispatch(REGHITER(values))
                     switch (code) {
                         case 1:
-                            message.success('欢迎回来', 1, () => {
-                                this.props.history.push('/home')
-                            })
-                            break;
-                        case 0:
-                            message.error('用户名不存在', .2, () => {
-                                this.props.form.resetFields();
+                            message.success('注册成功', 1, () => {
+                                this.props.history.push('/login')
                             })
                             break;
                         case 2:
-                            message.error('密码错误', .1, () => {
-                                this.props.form.resetFields('password');
+                            message.error('用户名已存在', .3, () => {
+                                this.props.form.resetFields();
                             })
                             break;
-
                         default:
-                                message.error('未知错误')
                             break;
+
 
                     }
                 }
@@ -80,17 +73,10 @@ class Login extends Component {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('remember', {
-                                valuePropName: 'checked',
-                                initialValue: true,
-                            })(<Checkbox>记住密码</Checkbox>)}
-                            <a className="login-form-forgot" href="">
-                                忘记密码
-                            </a>
                             <Button type="primary" htmlType="submit" className="login-form-button">
-                                登录
+                                注册
                             </Button>
-                            <Link to="/register">去注册！</Link>
+                            <Link to="/login">去登录！</Link>
                         </Form.Item>
                     </Form>
                 </div>

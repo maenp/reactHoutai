@@ -30,6 +30,14 @@ export const post=(url,data)=>{
     }).then(res=>res.json())
     return result
 }
+//上传图片专用
+export const postimg=(url,data)=>{
+    var result=fetchPro(url,{
+        method: 'post',
+        body:data,
+    }).then(res=>res.json())
+    return result
+}
 export const jsonp=(url)=>{
     var result=fetchjsonp(url)
     .then(res=>res.json())

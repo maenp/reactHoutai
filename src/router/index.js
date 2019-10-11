@@ -3,6 +3,7 @@ import {
     BooksList,
     Home,
     Login,
+    Register,
     UserInfo,
     UserList
 } from "@pages"
@@ -68,6 +69,13 @@ export const noLayoutRoute = [
         component: Login,
         icon: "",
         name: "登陆",
+    },
+    {
+        path: "/register",
+        key: "/register",
+        component: Register,
+        icon: "",
+        name: "注册",
     }
 ]
 

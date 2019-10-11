@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import renderTabBar from '@utils/renderTabBar.js'
 import { layoutRoute } from '@router'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import DropDown from '@common/dropdown'
 const { Header, Content, Footer, Sider } = Layout;
+
 @withRouter
 class LayoutComponent extends Component {
     state = {
@@ -14,15 +16,16 @@ class LayoutComponent extends Component {
         this.setState({ collapsed });
     };
     render() {
+        let BreadArr = this.props.location.pathname.split('/')
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
                     <div className="logo" />
-                    <Menu theme="dark" 
-                    // defaultOpenKeys={['/books']}
-                    // defaultSelectedKeys={['/books/booksList']}
-                    onClick={this.handlerTo.bind(this)}
-                    mode="inline">
+                    <Menu theme="dark"
+                        defaultOpenKeys={['/books']}
+                        defaultSelectedKeys={['/home']}
+                        onClick={this.handlerTo.bind(this)}
+                        mode="inline">
                         {
                             renderTabBar(layoutRoute)
                         }
@@ -30,11 +33,16 @@ class LayoutComponent extends Component {
                 </Sider>
                 {/* 内容区 */}
                 <Layout>
-                    <Header style={{ background: '#333', padding: 0 }} />
+                    <Header style={{ padding: 0 }}>
+                        <DropDown />
+                    </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                            {
+                                BreadArr.map(t => (
+                                    <Breadcrumb.Item key={t}>{t}</Breadcrumb.Item>
+                                ))
+                            }
                         </Breadcrumb>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                             {this.props.children}
@@ -45,7 +53,7 @@ class LayoutComponent extends Component {
             </Layout>
         )
     }
-    handlerTo({key}){
+    handlerTo({ key }) {
         this.props.history.push(key)
     }
 }

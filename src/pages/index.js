@@ -21,6 +21,10 @@ export const Login = Loadable({
     loader: () => import("./login"),
     loading: Loading
 })
+export const Register = Loadable({
+    loader: () => import("./register"),
+    loading: Loading
+})
 
 
 export const UserInfo = Loadable({
